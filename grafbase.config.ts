@@ -6,24 +6,24 @@ import { config, graph } from "@grafbase/sdk";
 
 const g = graph.Standalone();
 
-const project = g.type("Project", {
-	title: g.string().length({ min: 3 }),
+g.type("Project", {
+	title: g.string(),
 	description: g.string().optional(),
 	image: g.url(),
 	liveSiteUrl: g.url(),
 	githubUrl: g.url(),
-	category: g.string().search(),
+	category: g.string(),
 	createdBy: g.ref("User"),
 });
 
-const user = g.type("User", {
-	name: g.string().length({ min: 2, max: 20 }),
-	email: g.email().unique(),
+g.type("User", {
+	name: g.string(),
+	email: g.email(),
 	avatarUrl: g.url(),
 	description: g.string().optional(),
 	githubUrl: g.url().optional(),
 	linkedinUrl: g.url().optional(),
-	projects: g.ref(project).list().optional(),
+	projects: g.ref("Project").list().optional(),
 });
 
 // Data Sources - https://grafbase.com/docs/connectors
