@@ -1,8 +1,4 @@
-import { config, graph } from "@grafbase/sdk";
-
-// Welcome to Grafbase!
-//
-// Configure authentication, data sources, resolvers and caching for your GraphQL API.
+import { config, connector, graph } from "@grafbase/sdk";
 
 const g = graph.Standalone();
 
@@ -26,17 +22,9 @@ g.type("User", {
 	projects: g.ref("Project").list().optional(),
 });
 
-// Data Sources - https://grafbase.com/docs/connectors
-//
-// const pg = connector.Postgres('pg', { url: g.env('DATABASE_URL') })
-// g.datasource(pg)
+const pg = connector.Postgres("pg", { url: g.env("DATABASE_URL") });
 
-// Resolvers - https://grafbase.com/docs/resolvers
-//
-// g.query('helloWorld', {
-//   returns: g.string(),
-//   resolver: 'hello-world',
-// })
+g.datasource(pg);
 
 export default config({
 	graph: g,
